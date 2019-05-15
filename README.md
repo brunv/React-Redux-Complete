@@ -31,8 +31,5 @@ Run this command:
 npm start
 ```
 
-#### Stopping a project
-Run this command:
-```
-npm stop
-```
+## What is a Component?
+A component is a *function* or *class* that produces HTML (using .jsx) to show the user and handles feedback from the user (using event handlers).
