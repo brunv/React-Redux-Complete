@@ -13,8 +13,6 @@ npm install -g create-react-app
 To use this package and create your react app, just run:
 ```
 npx create-react-app <app_name>
-// or
-create-react-app <app_name>
 ```
 
 **Project Directory Structure:**
