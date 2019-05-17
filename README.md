@@ -31,3 +31,8 @@ npm start
 
 ## What is a Component?
 A component is a *function* or *class* that produces HTML (using .jsx) to show the user and handles feedback from the user (using event handlers).
+
+#### Component:
+- **Nesting:** A component can be shown inside of another
+- **Reusability:** We want to make components that can be easily reused through out application
+- **Configuration:** We should be able to configure a component when it is created
