@@ -43,3 +43,6 @@ A component is a *function* or *class* that produces HTML (using .jsx) to show t
 - Create a new file to house this new component - it should have the same name as the component and must be in uppercase
 - Create a new component in the new file, paste the JSX into it
 - Make the new component configurable by using React's *props* system
+
+## Props in Components
+It's a system for passing data from a *parent* component to a *child* component. Its goal is to customize or configure a child component.
