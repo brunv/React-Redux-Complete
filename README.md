@@ -36,3 +36,10 @@ A component is a *function* or *class* that produces HTML (using .jsx) to show t
 - **Nesting:** A component can be shown inside of another
 - **Reusability:** We want to make components that can be easily reused through out application
 - **Configuration:** We should be able to configure a component when it is created
+
+#### Creating a reusable and configurable component:
+- Identify the JSX that appears to be duplicated
+- What is the purpose of that block of JSX? Think of a descriptive name for what it does
+- Create a new file to house this new component - it should have the same name as the component and must be in uppercase
+- Create a new component in the new file, paste the JSX into it
+- Make the new component configurable by using React's *props* system
