@@ -53,7 +53,12 @@ A component is a *function* or *class* that produces HTML (using .jsx) to show t
   - Understands lifecycle events
   - Easier to do things when the app first starts
 
-
-
-## Props in Components
+### Props in Components
 It's a system for passing data from a *parent* component to a *child* component. Its goal is to customize or configure a child component.
+
+## React State
+- Only usable with class components (technically can be used with functional components using the *hooks* system)
+- *State* is a JS object that contains data relevant to a component
+- Updating *state* on component causes the component to (almost) instantly rerender
+- Must be initialized when a component is first created
+- Can **only** be updated using the funcion *setState()*
