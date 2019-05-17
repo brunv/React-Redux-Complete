@@ -44,5 +44,16 @@ A component is a *function* or *class* that produces HTML (using .jsx) to show t
 - Create a new component in the new file, paste the JSX into it
 - Make the new component configurable by using React's *props* system
 
+#### Functional Components vs Class Components:
+- Funcitonal: good for simple content
+- Class-based: good if you have any complex logic; anything that needs to respond to user input; anything that need to make network requests
+  - Easier code organization
+  - Can use *state*
+  - Easier to handle user input
+  - Understands lifecycle events
+  - Easier to do things when the app first starts
+
+
+
 ## Props in Components
 It's a system for passing data from a *parent* component to a *child* component. Its goal is to customize or configure a child component.
