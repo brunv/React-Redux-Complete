@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 class App extends React.Component {
     // constructor(props) {
@@ -33,7 +34,7 @@ class App extends React.Component {
             return <SeasonDisplay latitude={this.state.lat}/>;
             // Yes, we can pass 'state' as a 'props' down to the child
         }
-        return <div>Loading!</div>;
+        return <Spinner />;
     }
 }
 
