@@ -24,8 +24,9 @@ class App extends React.Component {
         );
     }
 
-    // React says we have to define render!
-    render () {
+    // If we ever have to have conditional logic as you se right above
+    // we're always going to instead put it to a helper method:
+    renderContent() {
         // Conditional rendering:
         if (this.state.errorMessage && !this.state.lat) {
             return <div>Error: {this.state.errorMessage}</div>;
@@ -35,6 +36,14 @@ class App extends React.Component {
             // Yes, we can pass 'state' as a 'props' down to the child
         }
         return <Spinner message="Getting the current position..."/>;
+    }
+
+    render () {
+        return (
+            <div className="border red">
+                {this.renderContent()}
+            </div>
+        );
     }
 }
 
