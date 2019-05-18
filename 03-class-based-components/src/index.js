@@ -2,32 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);   // Super is a reference to the parent's constructor function
+    // constructor(props) {
+    //     super(props);   // Super is a reference to the parent's constructor function
 
-        // THIS IS THE ONLY TIME we do direct assignment to this.state !
-        this.state = { lat: null, errorMessage: '' };
+    //     // THIS IS THE ONLY TIME we do direct assignment to this.state !
+    //     this.state = { lat: null, errorMessage: '' };
+    // }
 
-        window.navigator.geolocation.getCurrentPosition(
-            (position) => {                         // success callback
-                // Call setState(): this will run asynchronously
-                this.setState({ lat: position.coords.latitude });
-
-                // Don't do this:
-                // this.state.lat = positions.coords.latitude
-            },
-            (err) => {                              // failure callback
-                this.setState({ errorMessage: err.message})
-            }
-        );
-    }
+    // This is equivalent to defining the constructor function and initializing
+    // our state inside there
+    state = { lat: null, errorMessage: '' };
 
     componentDidMount() {
-        console.log('My component was rendered to the screen');
-    }
-
-    componentDidUpdate() {
-        console.log('My component was just updated - it rerendered!');
+        // Get users current position
+        // Call setState(): this will run asynchronously
+        window.navigator.geolocation.getCurrentPosition(
+            (position) => this.setState({ lat: position.coords.latitude }),
+            (err) => this.setState({ errorMessage: err.message})
+        );
     }
 
     // React says we have to define render!

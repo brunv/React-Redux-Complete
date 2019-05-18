@@ -65,12 +65,26 @@ It's a system for passing data from a *parent* component to a *child* component.
 
 ## Component Lifecycle
 - **START**
-- constructor
-- render
+- Constructor:
+  - Good place to do our state initialization and one-time setup (APIs, network requests, data loading...), but...
+  - It's recommended (as stated as a good practice in the documentation) that you do it inside the componentDidMount mehtod
+- Render:
+  - Just return JSX
+  - Avoid doing anything besides returning JSX
 - (content visible on screen)
-- componentDidMount
+- ComponentDidMount:
+  - Perfect location to do some initial data loading for your component
+  - Or to kick off some outside process like getting users current position if you only have todo this one time
 - (sit and wait for updates...)
-- componentDidUpdate (use render again)
+- ComponentDidUpdate:
+  - This method is called every single time that a component is updated any reason
+  - Good place to do more data-loading when *state* or *props* change
 - (sit and wait until this component is no longer shown)
-- componentWillUnmount
+- componentWillUnmount:
+  - Good place to do cleanup (especially for non-React stuff)
 - **END**
+
+- **Other lifecycle methods (rarely used):**
+- ShouldComponentUpdate
+- GetDerivedStateFromProps
+- GetSnapshotBeforeUpdate
