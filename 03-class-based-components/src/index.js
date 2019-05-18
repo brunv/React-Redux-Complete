@@ -34,7 +34,7 @@ class App extends React.Component {
             return <SeasonDisplay latitude={this.state.lat}/>;
             // Yes, we can pass 'state' as a 'props' down to the child
         }
-        return <Spinner />;
+        return <Spinner message="Getting the current position..."/>;
     }
 }
 
