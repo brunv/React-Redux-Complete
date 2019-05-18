@@ -62,3 +62,15 @@ It's a system for passing data from a *parent* component to a *child* component.
 - Updating *state* on component causes the component to (almost) instantly rerender
 - Must be initialized when a component is first created
 - Can **only** be updated using the funcion *setState()*
+
+## Component Lifecycle
+- **START**
+- constructor
+- render
+- (content visible on screen)
+- componentDidMount
+- (sit and wait for updates...)
+- componentDidUpdate (use render again)
+- (sit and wait until this component is no longer shown)
+- componentWillUnmount
+- **END**
