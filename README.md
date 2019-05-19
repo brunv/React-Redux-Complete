@@ -88,3 +88,6 @@ It's a system for passing data from a *parent* component to a *child* component.
 - ShouldComponentUpdate
 - GetDerivedStateFromProps
 - GetSnapshotBeforeUpdate
+
+## Controlled and Uncontrolled Forms
+Controlled elements stores data inside of the component rather than leaving the data inside the DOM like Uncontrolled elements.
