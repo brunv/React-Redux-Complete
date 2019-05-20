@@ -91,3 +91,6 @@ It's a system for passing data from a *parent* component to a *child* component.
 
 ## Controlled and Uncontrolled Forms
 Controlled elements stores data inside of the component rather than leaving the data inside the DOM like Uncontrolled elements.
+
+## React Refs
+React Reafs are a system to give us direct access to a single DOM element that is rendered. To use it we create refs in the constructor, assign them to instance variables, then pass to a particular JSX element as props.
