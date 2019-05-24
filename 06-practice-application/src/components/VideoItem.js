@@ -1,14 +1,14 @@
 import './VideoItem.css';
 import React from 'react';
 
-const VideoItem = ({ video }) => {
+const VideoItem = ({ video, onVideoSelect }) => {
     // props was destructured
 
     return (
-        <div className="video-item item">
+        <div className="video-item item" onClick={() => onVideoSelect(video)}>
             <img
                 src={video.snippet.thumbnails.medium.url}
-                alt=""
+                alt={video.snippet.title}
                 className="ui image"
             />
             <div className="content">
