@@ -94,3 +94,10 @@ Controlled elements stores data inside of the component rather than leaving the 
 
 ## React Refs
 React Reafs are a system to give us direct access to a single DOM element that is rendered. To use it we create refs in the constructor, assign them to instance variables, then pass to a particular JSX element as props.
+
+## Redux
+
+### Redux Cycle
+To change state of our app, we call an **Action Creator** that procudes an **Action**. This action gets fed to **Dispatch** that forwards the action to **Reducers**. This new Reducers creates new **State**, then we wait until we need to update state again to start the cycle once again.
+
+To see a code example of this explanation, check this pen [Redux 101](https://codepen.io/brunv/pen/joXeeV).
