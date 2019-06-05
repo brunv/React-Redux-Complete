@@ -109,7 +109,7 @@ npm install --save-dev redux react-redux
 ```
 
 ### Redux Thunk
-Thunk is a **middleware** to help us make requests in a redux application.
+Thunk is a **middleware** to help us make requests in a redux application. Redux Thunk simply allows us Action Creators to return functions instead of actions objects, making async requests easier.
 ```
 npm install --save-dev redux-thunk
 ```
