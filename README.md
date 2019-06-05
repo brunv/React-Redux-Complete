@@ -107,3 +107,9 @@ To install Redux and React-Redux, just enter the command:
 ```
 npm install --save-dev redux react-redux
 ```
+
+### Redux Thunk
+Thunk is a **middleware** to help us make requests in a redux application.
+```
+npm install --save-dev redux-thunk
+```
