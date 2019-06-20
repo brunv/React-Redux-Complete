@@ -113,3 +113,33 @@ Thunk is a **middleware** to help us make requests in a redux application. Redux
 ```
 npm install --save-dev redux-thunk
 ```
+
+### Some rules of Reducers
+- Must return *any* value besided *undefined*
+- Produces *state*, or data to be used inside of your app using only previous state and the action (reducers are pure)
+- Must no return reach 'out of itself' to decide what value to return
+- Must not mutate its input *state* argument
+
+### How to work with Arrays and Objects without mutating the *state* argument directly
+Why do we need to use this syntax? Because Redux notifies the React app only when there is a change to the state. It does it by comparing the previous state and the next one after getting through the reducers. This comparison between two arrays or two objects in JavaScript is done by comparing its position in memory, so if you change an object or array directly there is no way to tell if something has change thus Redux doesn't notify React about it. The only way Redux can identify the change is by reciving a new array or object. And to do so you need to use the ES6 syntax:
+
+- **Removing** an element from an array:
+  - **Bad**: state.pop()
+  - **Good**: state.filter(element => element !== 'hi')
+- **Adding** an element from an array:
+  - **Bad**: state.push('hi')
+  - **Good**: [...state, 'hi']
+- **Replacing** an element in an array:
+  - **Bad**: state\[0] = 'hi'
+  - **Good**: state.map(el => el === 'hi' ? 'bye' : el)
+
+
+- **Updating** an element from an object:
+  - **Bad**: state.name = 'Sam'
+  - **Good**: { ...state, name: 'Sam' }
+- **Adding** an element from an object:
+  - **Bad**: state.age = 30
+  - **Good**: { ...state, age: undefined }
+- **Removing** an element from an object:
+  - **Bad**: delete state.name
+  - **Good**: { ...state, age: undefined } or _.omit(state, 'age') (this is Lodash Library)
