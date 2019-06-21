@@ -21,5 +21,5 @@ export const fetchPosts = () => async (dispatch) => {
     // this is a function that returns a function
     const response = await jsonPlaceholder.get('/posts');
 
-    dispatch({ type: 'FETCH_POSTS', payload: response });
+    dispatch({ type: 'FETCH_POSTS', payload: response.data });
 };
