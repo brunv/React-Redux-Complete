@@ -95,7 +95,7 @@ Controlled elements stores data inside of the component rather than leaving the 
 ## React Refs
 React Reafs are a system to give us direct access to a single DOM element that is rendered. To use it we create refs in the constructor, assign them to instance variables, then pass to a particular JSX element as props.
 
-## Redux
+# Redux
 
 ### Redux Cycle
 To change state of our app, we call an **Action Creator** that procudes an **Action**. This action gets fed to **Dispatch** that forwards the action to **Reducers**. This new Reducers creates new **State**, then we wait until we need to update state again to start the cycle once again.
@@ -143,3 +143,16 @@ Why do we need to use this syntax? Because Redux notifies the React app only whe
 - **Removing** an element from an object:
   - **Bad**: delete state.name
   - **Good**: { ...state, age: undefined } or _.omit(state, 'age') (this is Lodash Library)
+
+## React Router
+A short overview of the react-router libs:
+
+- **react-router**: core navigation lib (we don't install this manually)
+- **react-router-dom**: navigation for dom-based app (that's what we need)
+- **react-router-native**: navigation for react-native apps
+- **react-router-redux**: binding between Redux and React Router (not necessary)
+
+So we need to install:
+```
+npm install --save react-router-dom
+```
