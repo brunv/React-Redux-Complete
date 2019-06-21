@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, HashRouter, MemoryRouter } from 'react-router-dom';
 
 const PageOne = () => {
     return (
@@ -51,6 +51,19 @@ const App = () => {
         </div>
     );
 };
+
+// const App = () => {
+//     return (
+//         <div>
+// *            <HashRouter> or <MemoryRouter>
+//                 <div>
+//                     <Route path="/" exact component={PageOne} />
+//                     <Route path="/pagetwo" component={PageTwo} />
+//                 </div>
+// *            </HashRouter> or </MemoryRouter>
+//         </div>
+//     );
+// };
 
 /**
  * The 'exact' prop in the Route component means that React has to

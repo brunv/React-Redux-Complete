@@ -156,3 +156,22 @@ So we need to install:
 ```
 npm install --save react-router-dom
 ```
+
+### Different types of routers
+ - **MemoryRouter**: doesn't use the URL to track navigation.
+   - localhost:3000/
+   - **Use case**: MemoryRouter uses no visible path. Useful in cases where direct navigation via the address bar doesn't make sense. Consider for example a game. Sure, the game has a start page, maybe some settings, a highscore list, and various stages going through the game. But navigating directly to e.g. /game/level/5 is (probably) not something you want (depending on the game of course).
+ - **HashRouter**: uses everything after a # as the 'path'.
+   - localhost:3000/#/pagetwo
+   - **Use case**: HashRouter has a visible path, but uses the hash thing. Practically for the user this is no different from the BrowserRouter, but using the hash also means you as a developer, when you deploy, can deploy anywhere with no configuration of the web server. It will just work.
+ - **BrowserRouter**: uses everything after the TLD (.com, .net) or port as the 'path'.
+   - localhost:3000/pagetwo
+   - **Use case**: BrowserRouter also has a visible path, but to properly work, you will need to do special configuration on the web server to make sure that your index.html file is served, even when the web server is asked for something else (like /pagetwo, from the example, which doesn't actually exist on the web server). For example, here's how one could do it using the Apache Web Server using an .htaccess file:
+```
+RewriteEngine on
+RewriteBase /
+ 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.html/$0 [L]
+```
