@@ -175,3 +175,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule .* index.html/$0 [L]
 ```
+
+### Always visible components
+In order to make sure that a components is always visible we just have to place it inside the App component and outside of out <Router>. To be more clear, here's an use case: when the same header is used (visible) in every page.
