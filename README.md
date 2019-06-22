@@ -178,3 +178,28 @@ RewriteRule .* index.html/$0 [L]
 
 ### Always visible components
 In order to make sure that a components is always visible we just have to place it inside the App component and outside of out <Router>. To be more clear, here's an use case: when the same header is used (visible) in every page.
+
+## React Authentication
+#### Email/Password Authentication
+- We store a record in a database with the user's email and password
+- When the user tries to login, we compare email and passoword with what is stored in database
+- A user is 'logged in' when they enter the correct email and password
+
+#### OAuth Authentication
+- User authenticates with outside service provider (Google, LinkedIn, Facebook)
+- User authorizes our app to access their information
+- Outside provider tells us about the user
+- We are trusting the outside provider to correctly handle identification of a user
+- OAuth can be used for:
+  - user identification in our app
+  - our app making actions on behalf of user
+
+#### OAuth for Servers
+- Results in a 'token' that a server can use to make requests on behalf of the user
+- Usually used when we have an app that needs to access user data when they are not logged in
+- Difficult to setup because we need to store a lot of info about the user
+
+#### OAuth for JS Browser Apps
+- Results in a 'token' that a server can use to make requests on behalf of the user
+- Usually used when we have an app that only needs to access user data when they are logged in
+- Very easy to set up thanks to Google's JS lib to automate the entire authentication proccess
