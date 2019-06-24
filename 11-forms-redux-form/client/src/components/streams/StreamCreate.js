@@ -5,12 +5,14 @@ import { Field, reduxForm } from 'redux-form';
 // and reduxForm is not because it is a function!
 
 class StreamCreate extends React.Component {
-    renderInput({ input, label }) {
+    renderInput({ input, label, meta }) {
+        console.log(meta);
         // console.log(formProps);
         return (
             <div className="field">
                 <label>{label}</label>
                 <input {...input} />
+                <div>{meta.error}</div>
             </div>
         );
     }
@@ -32,6 +34,21 @@ class StreamCreate extends React.Component {
     }
 }
 
+const validate = (formValues) => {
+    const errors = {};
+
+    if (!formValues.title) {
+        errors.title = 'You must enter a title';
+    }
+
+    if (!formValues.description) {
+        errors.description = 'You must enter a description';
+    }
+
+    return errors;
+};
+
 export default reduxForm({
-    form: 'streamCreate'
+    form: 'streamCreate',
+    validate: validate
 })(StreamCreate);
