@@ -203,3 +203,13 @@ In order to make sure that a components is always visible we just have to place 
 - Results in a 'token' that a server can use to make requests on behalf of the user
 - Usually used when we have an app that only needs to access user data when they are logged in
 - Very easy to set up thanks to Google's JS lib to automate the entire authentication proccess
+
+## Making a REST API
+### Using json-server
+After installing *json-server* in a new project, add this line to the "scripts" in *package.json*:
+```
+"scripts": {
+  "start": "json-serve -p 3001 -w db.json"
+}
+```
+This is going to start up the *json-server* running o port (*-p*) 3001 and it's going to watch (*-w*) the *db.json* file for anu changes that get made to it.
