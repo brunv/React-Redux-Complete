@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
 
 // Remember: Field is capitalized because it is a React Component
 // and reduxForm is not because it is a function!
@@ -30,9 +32,11 @@ class StreamCreate extends React.Component {
         );
     }
 
-    onSubmit(formValues) {
+    onSubmit = (formValues) => {
         // event.preventDefault(); is already handled by the 'handleSubmit' method of Redux Form
         console.log(formValues);
+
+        this.props.createStream(formValues);
     }
 
     render() {
@@ -61,7 +65,9 @@ const validate = (formValues) => {
     return errors;
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
     form: 'streamCreate',
     validate: validate
 })(StreamCreate);
+
+export default connect(null, { createStream })(formWrapped);
