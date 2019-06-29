@@ -182,10 +182,10 @@ In order to make sure that a components is always visible we just have to place 
 ## React Authentication
 #### Email/Password Authentication
 - We store a record in a database with the user's email and password
-- When the user tries to login, we compare email and passoword with what is stored in database
+- When the user tries to login, we compare email and password with what is stored in database
 - A user is 'logged in' when they enter the correct email and password
 
-#### OAuth Authentication
+#### Google OAuth Authentication
 - User authenticates with outside service provider (Google, LinkedIn, Facebook)
 - User authorizes our app to access their information
 - Outside provider tells us about the user
@@ -199,7 +199,7 @@ In order to make sure that a components is always visible we just have to place 
 - Usually used when we have an app that needs to access user data when they are not logged in
 - Difficult to setup because we need to store a lot of info about the user
 
-#### OAuth for JS Browser Apps
+#### OAuth for JS Browser Apps (used in this course)
 - Results in a 'token' that a server can use to make requests on behalf of the user
 - Usually used when we have an app that only needs to access user data when they are logged in
 - Very easy to set up thanks to Google's JS lib to automate the entire authentication proccess
