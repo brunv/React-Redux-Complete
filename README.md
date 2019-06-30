@@ -176,6 +176,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule .* index.html/$0 [L]
 ```
 
+### Intentional vs Programmatic Navigation
+- **Intentional Navigation**: user clicks on a '<Link>' component. That is when a user is trying to go from page A over to page B.
+- **Programmatic Navigation**: we run code to forcibly navigate the user through our app. It's when our app run some code in response to some type of event.
+
 ### Always visible components
 In order to make sure that a components is always visible we just have to place it inside the App component and outside of out <Router>. To be more clear, here's an use case: when the same header is used (visible) in every page.
 
