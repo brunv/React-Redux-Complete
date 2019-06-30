@@ -157,6 +157,8 @@ So we need to install:
 npm install --save react-router-dom
 ```
 
+**Important:** With React-Router we need to make sure that every component is going to fetch its own data. In another words, each component needs to be designed to work in isolation!
+
 ### Different types of routers
  - **MemoryRouter**: doesn't use the URL to track navigation.
    - localhost:3000/
