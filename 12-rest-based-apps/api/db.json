@@ -1,8 +1,8 @@
 {
   "streams": [
     {
-      "title": "teste",
-      "description": "teeeeeeeeeeeste",
+      "title": "My Stream",
+      "description": "This is a test Stream.",
       "id": 1
     }
   ]
