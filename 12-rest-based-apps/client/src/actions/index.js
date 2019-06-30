@@ -25,9 +25,9 @@ export const signOut = () => {
 };
 
 export const createStream = (formValues) => {
-    return async (dispath) => {
-        // Making a POST request with axios:
-        const response = await streams.post('/streams', formValues);
+    return async (dispath, getState) => {
+        const { userId } = getState().auth;
+        const response = await streams.post('/streams', { ...formValues, userId });
 
         dispath({ type: CREATE_STREAM, payload: response.data });
     };
