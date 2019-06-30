@@ -10,6 +10,12 @@
       "description": "This stream will have my userId",
       "userId": "114007697231643057085",
       "id": 2
+    },
+    {
+      "title": "Programmatic Navigation",
+      "description": "We created our own browser history for this!",
+      "userId": "114007697231643057085",
+      "id": 3
     }
   ]
 }
