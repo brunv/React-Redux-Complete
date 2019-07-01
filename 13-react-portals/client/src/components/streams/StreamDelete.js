@@ -3,12 +3,14 @@ import Modal from '../Modal'
 
 const StreamDelete = () => {
 
-    // we cannot remove the div
+    // We cannot remove the div that wraps up the two buttons because
+    // we are no allowed to assign multiple JSX elements to a single 
+    // variable. To do this we have to use React Fragment.
     const actions = (
-        <div>
+        <React.Fragment>
             <button className="ui button negative">Delete</button>
             <button className="ui button">Cancel</button>
-        </div>
+        </React.Fragment>
     );
 
     return (
