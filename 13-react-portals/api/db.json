@@ -1,0 +1,27 @@
+{
+  "streams": [
+    {
+      "title": "My Stream",
+      "description": "This is a test Stream.",
+      "id": 1
+    },
+    {
+      "title": "Stream Logged In",
+      "description": "This stream will have my userId",
+      "userId": "114007697231643057085",
+      "id": 2
+    },
+    {
+      "title": "Programmatic Navigation",
+      "description": "We created our own browser history for this!",
+      "userId": "114007697231643057085",
+      "id": 3
+    },
+    {
+      "title": "Changed Title",
+      "description": "Now changed the description too!",
+      "userId": "114007697231643057085",
+      "id": 4
+    }
+  ]
+}
