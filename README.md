@@ -221,8 +221,8 @@ After installing *json-server* in a new project, add this line to the "scripts" 
 This is going to start up the *json-server* running o port (*-p*) 3001 and it's going to watch (*-w*) the *db.json* file for anu changes that get made to it.
 
 ## React Portals
-Normally, all components are a cild of div with id="root". Portals let us get around this. With Portal we are able to render some component as a child of some other element in our HTML hierarchy (most commonly the body).
+Normally, all components are a child of div with id="root". Portals let us get around this. With Portal we are able to render some component as a child of some other element in our HTML hierarchy (most commonly the body).
 The most common uses for this are to make modal windows or when we want to work with some third party library.
 
 ## React Fragment
-We will want to use React.Fragment anytime you want to return multiple JSX elements but no have some presence inside the actual DOM.
+We will want to use React.Fragment anytime we want to return multiple JSX elements but don't want to have some presence inside the actual DOM.
