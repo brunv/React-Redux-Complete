@@ -228,4 +228,6 @@ The most common uses for this are to make modal windows or when we want to work 
 We will want to use React.Fragment anytime we want to return multiple JSX elements but don't want to have some presence inside the actual DOM.
 
 ## Context System in React
-With the Props System, we get the data from a parent component to a **direct** child component. Now with the Context System we can get the data from a parent component to **any** nested child component.
+With the Props System, we get the data from a parent component to a **direct** child component. Now with the Context System we can get the data from a parent component to **any** nested child component
+
+Each separe use of <Context.Provider> creater a new separate 'pipe' of information!!
