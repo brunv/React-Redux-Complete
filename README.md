@@ -231,3 +231,5 @@ We will want to use React.Fragment anytime we want to return multiple JSX elemen
 With the Props System, we get the data from a parent component to a **direct** child component. Now with the Context System we can get the data from a parent component to **any** nested child component
 
 Each separe use of <Context.Provider> creater a new separate 'pipe' of information!!
+
+Using ```this.context``` (contextType property) we can only access a single context object inside a component. So to access multiple different contexts objects we need to use Context.Consumer.
