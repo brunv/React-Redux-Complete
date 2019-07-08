@@ -235,3 +235,6 @@ Each separe use of <Context.Provider> creater a new separate 'pipe' of informati
 Using ```this.context``` (contextType property) we can only access a single context object inside a component. So to access multiple different contexts objects we need to use Context.Consumer.
 
 We can use Context as an alternative to Redux (although not recommended in most cases) by creating a React Component that contains all of our data and our business logic.
+
+## React Hooks
+The Hooks system is all about borroing some functionality from the class-based component world and adding it to our function-based components. Hooks are going to make it really easy to share logic between components, so it can solve issues around code reuse that's kind of hard to address with class-based components.
