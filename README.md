@@ -233,3 +233,5 @@ With the Props System, we get the data from a parent component to a **direct** c
 Each separe use of <Context.Provider> creater a new separate 'pipe' of information!!
 
 Using ```this.context``` (contextType property) we can only access a single context object inside a component. So to access multiple different contexts objects we need to use Context.Consumer.
+
+We can use Context as an alternative to Redux (although not recommended in most cases) by creating a React Component that contains all of our data and our business logic.

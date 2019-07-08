@@ -12,8 +12,8 @@ class Button extends React.Component {
      * a property directly to the class itself. 
      */
 
-    renderSubmit(value) {
-        return value === 'en-us' ? 'Submit' : 'Enviar';
+    renderSubmit(language) {
+        return language === 'en-us' ? 'Submit' : 'Enviar';
     }
 
     render() {
@@ -32,7 +32,7 @@ class Button extends React.Component {
                 {(color) =>
                     <button className={`ui button ${color}`}>
                         <LanguageContext.Consumer>
-                            {(value) => this.renderSubmit(value)}
+                            {({ language }) => this.renderSubmit(language)}
                         </LanguageContext.Consumer>
                     </button>
                 }
