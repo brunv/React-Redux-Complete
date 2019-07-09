@@ -242,14 +242,13 @@ The Hooks system is all about borroing some functionality from the class-based c
 ```
 const [currentValue, setCurrentValue] = useState(initialValue);
 
-/**
-* currentValue: contains the present value of this piece of state
-* setCurrentValue: function to call when we want to update our state (and rerender)
-* useState: function from React
-* initialValue: starting value for this piece of state, similar to when we initialized our state object
-*/
+// currentValue: contains the present value of this piece of state
+// setCurrentValue: function to call when we want to update our state (and rerender)
+// useState: function from React
+// initialValue: starting value for this piece of state, similar to when we initialized our state object
 
-/* Analogies to the component level state inside of a class: */
+// Analogies to the component level state inside of a class:
+
 // currentValue:
 this.state.resource;
 
