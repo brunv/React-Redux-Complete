@@ -28,7 +28,7 @@ const SeasonDisplay = (props) => {
 
     return (
         // A good practice is to always make sure that the root element inside
-        // inside the component has a className equal to the kind of CSS version
+        // the component has a className equal to the kind of CSS version
         // of the component name: SeasonDisplay --> season-display
         <div className={`season-display ${season}`}>
             <i className={`icon-left massive ${iconName} icon`} />

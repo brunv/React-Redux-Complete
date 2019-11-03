@@ -34,7 +34,7 @@ A component is a *function* or *class* that produces HTML (using .jsx) to show t
 
 #### Component:
 - **Nesting:** A component can be shown inside of another
-- **Reusability:** We want to make components that can be easily reused through out application
+- **Reusability:** We want to make components that can be easily reused through our application
 - **Configuration:** We should be able to configure a component when it is created
 
 #### Creating a reusable and configurable component:
