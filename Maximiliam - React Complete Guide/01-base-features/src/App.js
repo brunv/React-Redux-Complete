@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Person from './Person/Person.js';
 
 // function App() {
 //   return (
@@ -10,21 +11,22 @@ import './App.css';
 // }
 
 class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>Hi, this is a React App</h1>
-      </div>
-    );
+    render() {
+        return (
+            <div className="App">
+                <h1>Hi, this is a React App</h1>
+                <Person />
+            </div>
+        );
 
-    // This JSX above is compiled to this code:
+        // This JSX above is compiled to this code:
 
-    // return React.createElement(
-    //   'div',
-    //   { className: 'App' },
-    //   React.createElement('h1', null, 'Hi, this is a React App')
-    // );
-  }
+        // return React.createElement(
+        //   'div',
+        //   { className: 'App' },
+        //   React.createElement('h1', null, 'Hi, this is a React App')
+        // );
+    }
 }
 
 export default App;
