@@ -11,13 +11,26 @@ import Person from './Person/Person.js';
 // }
 
 class App extends React.Component {
+    state = {
+        persons: [
+            { name: 'Max', age: 28 },
+            { name: 'Stephen', age: 29 },
+            { name: 'Andrew', age: 26 },
+        ]
+    }
+
     render() {
         return (
             <div className="App">
                 <h1>Hi, this is a React App</h1>
-                <Person name="Bruno" age="24"> I like my new Nintendo DS</Person>
+                <button>Switch Name</button>
+                <Person
+                    name={this.state.persons[0].name}
+                    age={this.state.persons[0].age}>
+                    I like my new Nintendo DS
+                </Person>
                 <Person name="Max" age="28">I'm the instructor</Person>
-                <Person name="Andrew" age="26">I taught about Nodejs</Person >
+                <Person name="Andrew" age="26">I taught about Nodejs</Person>
             </div>
         );
 
