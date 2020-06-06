@@ -19,18 +19,34 @@ class App extends React.Component {
         ]
     }
 
+    switchNameHandler = () => {
+        // this.state.persons[0].name = 'Maximilian'; DONT DO THIS
+        this.setState({
+            persons: [
+                { name: 'Maximilian', age: 28 },
+                { name: 'Stephen', age: 29 },
+                { name: 'Andrew', age: 27 },
+            ]
+        });
+    }
+
     render() {
         return (
             <div className="App">
                 <h1>Hi, this is a React App</h1>
-                <button>Switch Name</button>
+                <button onClick={this.switchNameHandler}>Switch Name</button>
                 <Person
                     name={this.state.persons[0].name}
                     age={this.state.persons[0].age}>
-                    I like my new Nintendo DS
                 </Person>
-                <Person name="Max" age="28">I'm the instructor</Person>
-                <Person name="Andrew" age="26">I taught about Nodejs</Person>
+                <Person
+                    name={this.state.persons[1].name}
+                    age={this.state.persons[1].age}>
+                </Person>
+                <Person
+                    name={this.state.persons[2].name}
+                    age={this.state.persons[2].age}>
+                </Person>
             </div>
         );
 
