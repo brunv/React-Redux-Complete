@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Person from './Person/Person.js';
 
@@ -10,54 +10,58 @@ import Person from './Person/Person.js';
 //   );
 // }
 
-class App extends React.Component {
-    state = {
+const App = (props) => {
+    const [person, setPerson] = useState({
         persons: [
             { name: 'Max', age: 28 },
             { name: 'Stephen', age: 29 },
             { name: 'Andrew', age: 26 },
-        ]
-    }
+        ],
+        otherState: 'some other value'
+    });
 
-    switchNameHandler = () => {
+    const [otherState, setOtherState] = useState('some other value');
+
+    console.log(person, otherState);
+
+    const switchNameHandler = () => {
         // this.state.persons[0].name = 'Maximilian'; DONT DO THIS
-        this.setState({
+        setPerson({
             persons: [
                 { name: 'Maximilian', age: 28 },
                 { name: 'Stephen', age: 29 },
                 { name: 'Andrew', age: 27 },
-            ]
+            ],
+            otherState: person.otherState
         });
     }
 
-    render() {
-        return (
-            <div className="App">
-                <h1>Hi, this is a React App</h1>
-                <button onClick={this.switchNameHandler}>Switch Name</button>
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}>
-                </Person>
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}>
-                </Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}>
-                </Person>
-            </div>
-        );
+    return (
+        <div className="App">
+            <h1>Hi, this is a React App</h1>
+            <button onClick={switchNameHandler}>Switch Name</button>
+            <Person
+                name={person.persons[0].name}
+                age={person.persons[0].age}>
+            </Person>
+            <Person
+                name={person.persons[1].name}
+                age={person.persons[1].age}>
+            </Person>
+            <Person
+                name={person.persons[2].name}
+                age={person.persons[2].age}>
+            </Person>
+        </div>
+    );
 
-        // This JSX above is compiled to this code:
+    // This JSX above is compiled to this code:
 
-        // return React.createElement(
-        //   'div',
-        //   { className: 'App' },
-        //   React.createElement('h1', null, 'Hi, this is a React App')
-        // );
-    }
+    // return React.createElement(
+    //   'div',
+    //   { className: 'App' },
+    //   React.createElement('h1', null, 'Hi, this is a React App')
+    // );
 }
 
 export default App;
