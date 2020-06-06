@@ -16,6 +16,14 @@ class App extends React.Component {
         <h1>Hi, this is a React App</h1>
       </div>
     );
+
+    // This JSX above is compiled to this code:
+
+    // return React.createElement(
+    //   'div',
+    //   { className: 'App' },
+    //   React.createElement('h1', null, 'Hi, this is a React App')
+    // );
   }
 }
 
