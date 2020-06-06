@@ -24,16 +24,26 @@ const App = (props) => {
 
     console.log(person, otherState);
 
-    const switchNameHandler = () => {
+    const switchNameHandler = (newName) => {
         // this.state.persons[0].name = 'Maximilian'; DONT DO THIS
         setPerson({
             persons: [
-                { name: 'Maximilian', age: 28 },
+                { name: newName, age: 28 },
                 { name: 'Stephen', age: 29 },
                 { name: 'Andrew', age: 27 },
             ],
             otherState: person.otherState
         });
+    }
+
+    const nameChangedHandler = (event) => {
+        setPerson({
+            persons: [
+                { name: 'Maximilian', age: 28 },
+                { name: event.target.value, age: 29 },
+                { name: 'Andrew', age: 27 },
+            ]
+        })
     }
 
     return (
@@ -46,7 +56,9 @@ const App = (props) => {
             </Person>
             <Person
                 name={person.persons[1].name}
-                age={person.persons[1].age}>
+                age={person.persons[1].age}
+                click={switchNameHandler.bind(this, 'Max!')}
+                changed={nameChangedHandler}>
             </Person>
             <Person
                 name={person.persons[2].name}
