@@ -35,10 +35,27 @@ class App extends Component {
         })
     }
 
+    deletePersonHandler = (personIndex) => {
+        // Arrys and objects are reference types, so it's only holding a pointer:
+        // const persons = this.state.persons;
+        // persons.splice(personIndex, 1); // this changes the element persons was pointing to
+
+        // BUT YOU SHOULD ALWAYS UPDATE STATE IN AN IMMUTABLE FASHION, SO WITHOUT
+        // MUTATING THE ORIGINAL STATE FIRST
+
+        // So the best practice is to keep it untouched by creating a copy of it:
+        // const persons = this.state.persons.slice();
+        // or:
+        const persons = [...this.state.persons];
+        // and then working it the copy:
+        persons.splice(personIndex, 1);
+        this.setState({ persons: persons });
+    }
+
     togglePersonsHandler = () => {
         const current = this.state.showPersons;
         this.setState({ showPersons: !current });
-        console.log(current);
+        // console.log(current);
     }
 
     render() {
@@ -56,9 +73,11 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    {this.state.persons.map(person => {
+                    {this.state.persons.map((person, index) => {
                         return (
                             <Person
+                                click={() => this.deletePersonHandler(index)}
+                                // click={deletePersonHandler.bind(this, index)} ALT VERSION
                                 name={person.name}
                                 age={person.age}
                             />
