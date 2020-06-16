@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
 import Person from './Person/Person';
+
+// The '&' symbol means that this pseudo-class belongs to the this class (scoped)
+const StyledButton = styled.button`
+    background-color: green;
+    color: white;
+    font: inherit;
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: lightgreen;
+        color: black;
+    }
+`;
 
 class App extends Component {
     state = {
@@ -63,15 +79,6 @@ class App extends Component {
     }
 
     render() {
-        const style = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
-
         // conditional rendering "the javascript way":
         let persons = null;
 
@@ -92,9 +99,6 @@ class App extends Component {
                     })}
                 </div>
             );
-
-            // Changing the style dynamicaly:
-            style.backgroundColor = 'red';
         }
 
         const classes = [];
@@ -109,12 +113,12 @@ class App extends Component {
             <div className="App">
                 <h1>Hi, I'm a React App</h1>
                 <p className={classes.join(' ')}>This is really working!</p>
-                <button
-                    style={style}
+                <StyledButton
+                    // style={style}
                     // Passing the function reference:
                     onClick={this.togglePersonsHandler}>
                     Toggle Persons
-                </button>
+                </StyledButton>
                 {/* {this.state.showPersons === true ? */}
                 {persons}
                 {/* : null } */}
