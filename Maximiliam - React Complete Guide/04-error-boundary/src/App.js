@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 // The '&' symbol means that this pseudo-class belongs to the this class (scoped)
 const StyledButton = styled.button`
@@ -87,14 +88,16 @@ class App extends Component {
                 <div>
                     {this.state.persons.map((person, index) => {
                         return (
-                            <Person
-                                click={() => this.deletePersonHandler(index)}
-                                // click={deletePersonHandler.bind(this, index)} ALT VERSION
-                                name={person.name}
-                                age={person.age}
-                                key={person.id}
-                                changed={(event) => this.nameChangedHandler(event, person.id)}
-                            />
+                            // In 'map' the 'key' has to be on the outer element:
+                            <ErrorBoundary key={person.id}>
+                                <Person
+                                    click={() => this.deletePersonHandler(index)}
+                                    // click={deletePersonHandler.bind(this, index)} ALT VERSION
+                                    name={person.name}
+                                    age={person.age}
+                                    changed={(event) => this.nameChangedHandler(event, person.id)}
+                                />
+                            </ErrorBoundary>
                         )
                     })}
                 </div>
