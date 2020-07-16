@@ -18,6 +18,7 @@ const StyledDiv = styled.div`
 `;
 
 const person = (props) => {
+    console.log('[Person.js] rendering...');
     return (
         // <div className="Person">
         <StyledDiv>
