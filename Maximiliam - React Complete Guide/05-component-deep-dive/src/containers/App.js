@@ -10,7 +10,6 @@ class App extends Component {
         // this.state = { }
     }
 
-
     /* This is just a more modern syntax wich behind the scenes will 
        basically add the constructor for you, call super(props) and
        set the state up in the constructor. */
@@ -31,6 +30,15 @@ class App extends Component {
 
     componentDidMount() {
         console.log('[App.js] componentDidMount');
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[App.js] shouldComponentUpdate');
+        return true;
+    }
+
+    componentDidUpdate() {
+        console.log('[App.js] componentDidUpdate');
     }
 
     switchNameHandler = (newName) => {
