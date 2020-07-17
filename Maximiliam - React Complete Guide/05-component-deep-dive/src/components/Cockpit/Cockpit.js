@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
 
     // The '&' symbol means that this pseudo-class belongs to the this class (scoped)
     const StyledButton = styled.button`
@@ -17,6 +17,15 @@ const cockpit = (props) => {
             color: black;
         }
     `;
+
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        // Http request...
+        setTimeout(() => {
+            alert('Saved data to cloud!');
+        }, 1000);
+    }, []);
+    // If the second argument is an empty array, it will only render once
 
     const classes = [];
     if (props.persons.length <= 2) {
@@ -39,4 +48,4 @@ const cockpit = (props) => {
     );
 };
 
-export default cockpit;
+export default Cockpit;
