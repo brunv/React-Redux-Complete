@@ -3,22 +3,28 @@ import Person from '../Persons/Person/Person';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 
-class Persons extends React.Component {
+class Persons extends React.PureComponent {
+    // A PureComponent is just a normal component what already implements
+    // shouldComponentUpdate with a complete props check, so that checks
+    // for any changes in any prop of that component.
 
     // static getDerivedStateFromProps(props, state) {
     //     console.log('[Persons.js] getDerivedStateFromProps');
     //     return state;
     // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Persons.js] shouldComponentUpdate');
-        if (nextProps.persons !== this.props.persons) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[Persons.js] shouldComponentUpdate');
+    //     if (nextProps.persons !== this.props.persons) {
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+    // }
+    // Now if have such a scenario where you check all the props of a given
+    // component for changes, then you can also not use shouldComponentUpdate
+    // but instead extend a different type of component, a PureComponent
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate');
