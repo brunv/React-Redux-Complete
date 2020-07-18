@@ -22,7 +22,8 @@ class App extends Component {
         ],
         otherState: 'some other value',
         showPersons: false,
-        showCockpit: true
+        showCockpit: true,
+        changeCounter: 0
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -66,7 +67,14 @@ class App extends Component {
         const persons = [...this.state.persons];
         persons[personIndex] = person;
 
-        this.setState({ persons: persons });
+        this.setState((prevState, props) => {
+            // Using setState this way will garantee that React use
+            // the previous state as you wourld expect it fot this update
+            return ({
+                persons: persons,
+                changeCounter: prevState.changeCounter + 1
+            });
+        });
     }
 
     deletePersonHandler = (personIndex) => {
