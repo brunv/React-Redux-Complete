@@ -21,11 +21,24 @@ const Cockpit = (props) => {
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // Http request...
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             alert('Saved data to cloud!');
         }, 1000);
+        // This will run when useEffect runs for the last time (due to the second argument []):
+        return () => {
+            clearTimeout(timer);
+            console.log('[Cockpit.js] cleanup work in useEffect');
+        }
     }, []);
     // If the second argument is an empty array, it will only render once
+
+    useEffect(() => {
+        console.log('[Cockpit.js] 2nd useEffect');
+        // In the opposite, this will run in every update cycle:
+        return () => {
+            console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+        }
+    })
 
     const classes = [];
     if (props.persons.length <= 2) {
