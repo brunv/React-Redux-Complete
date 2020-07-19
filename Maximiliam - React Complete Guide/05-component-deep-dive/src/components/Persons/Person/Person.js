@@ -26,9 +26,14 @@ class Person extends React.Component {
         this.inputElementRef = React.createRef();
     }
 
+    // Static property means that it can be accessed from outside without the
+    // need to instatiate an object based on this class first
+    static contextType = AuthContext;
+
     componentDidMount() {
         // this.inputElement.focus();
         this.inputElementRef.current.focus();
+        console.log(this.context.authenticated);
     }
 
     render() {
@@ -36,9 +41,7 @@ class Person extends React.Component {
         return (
             // <div className="Person">
             <React.Fragment>
-                <AuthContext.Consumer>
-                    {(context) => context.authenticated ? <p>Authenticated!</p> : <p>Please Log In</p>}
-                </AuthContext.Consumer>
+                {this.context.authenticated ? <p>Authenticated!</p> : <p>Please Log In</p>}
                 <p onClick={this.props.click}> I'm {this.props.name} and I am {this.props.age} years old!</p>
                 <p> {this.props.children}</p>
                 <input
