@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import AuthContext from '../../context/auth-context';
 
 const Cockpit = (props) => {
     const toggleBtnRef = useRef(null);
+    const authContext = useContext(AuthContext);
+
+    console.log(authContext.authenticated);
 
     // The '&' symbol means that this pseudo-class belongs to the this class (scoped)
     const StyledButton = styled.button`
@@ -62,9 +65,10 @@ const Cockpit = (props) => {
                 onClick={props.clicked}>
                 Toggle Persons
             </StyledButton>
-            <AuthContext.Consumer>
-                {context => <StyledButton onClick={context.login}>Log In</StyledButton>}
-            </AuthContext.Consumer>
+            <StyledButton
+                onClick={authContext.login}>
+                Log In
+            </StyledButton>
         </div>
     );
 };
