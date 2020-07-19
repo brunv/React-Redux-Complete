@@ -2,7 +2,6 @@ import React from 'react';
 import Person from '../Persons/Person/Person';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
-
 class Persons extends React.PureComponent {
     // A PureComponent is just a normal component what already implements
     // shouldComponentUpdate with a complete props check, so that checks

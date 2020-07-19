@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import withStyledComponent from '../../../hoc/withStyledComponent';
+import AuthContext from '../../../context/auth-context';
 
 // import './Person.css';
 
@@ -35,6 +36,9 @@ class Person extends React.Component {
         return (
             // <div className="Person">
             <React.Fragment>
+                <AuthContext.Consumer>
+                    {(context) => context.authenticated ? <p>Authenticated!</p> : <p>Please Log In</p>}
+                </AuthContext.Consumer>
                 <p onClick={this.props.click}> I'm {this.props.name} and I am {this.props.age} years old!</p>
                 <p> {this.props.children}</p>
                 <input
