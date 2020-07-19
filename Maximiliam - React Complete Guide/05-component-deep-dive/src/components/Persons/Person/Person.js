@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import withClass from '../../../hoc/withClass';
 import withStyledComponent from '../../../hoc/withStyledComponent';
 
 // import './Person.css';
@@ -33,6 +33,13 @@ class Person extends React.Component {
         )
 
     }
+};
+
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
 };
 
 export default withStyledComponent(Person, StyledDiv);
