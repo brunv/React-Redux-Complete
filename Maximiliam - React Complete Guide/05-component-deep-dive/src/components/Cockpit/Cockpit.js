@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const Cockpit = (props) => {
+    const toggleBtnRef = useRef(null);
 
     // The '&' symbol means that this pseudo-class belongs to the this class (scoped)
     const StyledButton = styled.button`
@@ -21,12 +22,13 @@ const Cockpit = (props) => {
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // Http request...
-        const timer = setTimeout(() => {
-            alert('Saved data to cloud!');
-        }, 1000);
+        // const timer = setTimeout(() => {
+        //     alert('Saved data to cloud!');
+        // }, 1000);
+        toggleBtnRef.current.click();
         // This will run when useEffect runs for the last time (due to the second argument []):
         return () => {
-            clearTimeout(timer);
+            // clearTimeout(timer);
             console.log('[Cockpit.js] cleanup work in useEffect');
         }
     }, []);
@@ -52,7 +54,9 @@ const Cockpit = (props) => {
         <div>
             <h1>{props.title}</h1>
             <p className={classes.join(' ')}>This is really working!</p>
-            <StyledButton alt={props.showPersons}
+            <StyledButton
+                alt={props.showPersons}
+                ref={toggleBtnRef}
                 // Passing the function reference:
                 onClick={props.clicked}>
                 Toggle Persons
