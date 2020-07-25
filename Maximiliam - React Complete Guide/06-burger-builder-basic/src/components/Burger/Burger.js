@@ -12,7 +12,7 @@ const burger = (props) => {
         }
     }
 
-    console.log(ingredientElements);
+    // console.log(ingredientElements);
 
     if (ingredientElements.length === 0) {
         ingredientElements.push(<p key="" >Please start adding elements.</p>);
