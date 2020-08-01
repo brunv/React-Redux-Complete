@@ -18,8 +18,6 @@ class FullPost extends Component {
                     });
             }
         }
-
-
     }
 
     render() {
