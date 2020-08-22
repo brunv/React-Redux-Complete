@@ -6,11 +6,11 @@ import classes from './Modal.module.css';
 /* React.memo() is a HOC for functional components.
    It verifies (shallow comparison) if there is any changes in the props,
    so if you're trying to listen to specific props, you must provide
-   a fcuntion as a second argument to the .memo() that makes the comparison.
+   a function as a second argument to the .memo() that makes the comparison.
 */
-const memoConditionalRender = ((prevProps, nextProps) => nextProps.show === prevProps.show);
+const memoConditionalRender = ((prevProps, nextProps) => nextProps.show === prevProps.show && nextProps.children === prevProps.children);
 /* If this component was a Class Based Component, you would use the
-   lifecycle hook 'shouldComponentUpdate()' to do the comparison?
+   lifecycle hook 'shouldComponentUpdate()' to do the comparison.
         shouldComponentUpdate(nextProps, nextState) {
             return nextProps.show !== this.props.show;
         }
