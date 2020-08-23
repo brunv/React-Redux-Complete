@@ -42,6 +42,8 @@ class Posts extends React.Component {
                     key={post.id}
                     title={post.title}
                     author={post.author}
+                    // this passes any props this Post container has onto the Post component:
+                    // {...this.props}
                     clicked={() => this.postSelectedHandler(post.id)} />;
             });
         }
