@@ -31,7 +31,9 @@ class Posts extends React.Component {
     }
 
     postSelectedHandler = (id) => {
-        this.setState({ selectedPostId: id });
+        // this.setState({ selectedPostId: id });
+        // this.props.history.push({ pathname: '/' + id });
+        this.props.history.push('/' + id);
     }
 
     render() {
@@ -40,20 +42,21 @@ class Posts extends React.Component {
         if (!this.state.error) {
             posts = this.state.posts.map(post => {
                 return (
-                    <Link to={'/' + post.id} key={post.id}>
-                        <Post
-                            title={post.title}
-                            author={post.author}
-                            // this passes any props this Post container has onto the Post component:
-                            // {...this.props}
-                            clicked={() => this.postSelectedHandler(post.id)} />
-                    </Link>
+                    // <Link to={'/' + post.id} key={post.id}>
+                    <Post
+                        key={post.id}
+                        title={post.title}
+                        author={post.author}
+                        // this passes any props this Post container has onto the Post component:
+                        // {...this.props}
+                        clicked={() => this.postSelectedHandler(post.id)} />
+                    // </Link >
                 );
             });
         }
 
         return (
-            <section className="Posts">
+            <section className="Posts" >
                 {posts}
             </section>
         );
