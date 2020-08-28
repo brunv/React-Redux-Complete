@@ -5,12 +5,16 @@ import Posts from './Posts/Posts';
 import asyncComponent from '../../hoc/asyncComponent';
 import './Blog.css';
 
-const AsyncNewPost = asyncComponent(() => {
-    // This is a special syntax, the dynamic import syntax, which means whatever
-    // comes between the parentheses here is only imported when the arrow function
-    // is executed only when we render AsyncNewPost to the screen.
-    return import('./NewPost/NewPost');
-});
+// const AsyncNewPost = asyncComponent(() => {
+//     // This is a special syntax, the dynamic import syntax, which means whatever
+//     // comes between the parentheses here is only imported when the arrow function
+//     // is executed only when we render AsyncNewPost to the screen.
+//     return import('./NewPost/NewPost');
+// });
+
+// In newer versions of React (^16.6.0) we can use the '.lazy()' method. We need
+// to use React.Suspense for this to work:
+const LazyNewPosts = React.lazy(() => import('./NewPost/NewPost'));
 
 class Blog extends Component {
     state = {
@@ -42,7 +46,16 @@ class Blog extends Component {
                 </header>
                 {/* <Route path="/" exact render={() => <h1>Home</h1>} /> */}
                 <Switch>
-                    {this.state.authenticated ? <Route path="/new-post" exact component={AsyncNewPost} /> : null}
+                    {/* {this.state.authenticated ? <Route path="/new-post" exact component={AsyncNewPost} /> : null} */}
+                    <Route
+                        path="/new-post"
+                        exact
+                        render={() => (
+                            <React.Suspense fallback={<div>Loading...</div>}>
+                                <LazyNewPosts />
+                            </React.Suspense>
+                        )}
+                    />
                     <Route path="/posts" component={Posts} />
                     <Route render={() => <h1>Not found.</h1>} />
                     {/* <Redirect from="/" to="/posts" /> */}
