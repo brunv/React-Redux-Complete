@@ -1,9 +1,12 @@
 import React from 'react';
-import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import { withRouter } from "react-router-dom";
 
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import classes from './Burger.module.css'
 
 const burger = (props) => {
+
+    // console.log(props); // Now we have those router props thanks to 'withRouter' hof.
 
     const ingredientElements = [];
     for (let key in props.ingredients) {
@@ -27,4 +30,4 @@ const burger = (props) => {
     );
 }
 
-export default burger;
+export default withRouter(burger);
