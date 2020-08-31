@@ -4,12 +4,12 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 
 class Checkout extends React.Component {
     state = {
-        ingredients: {
-            salad: 1,
-            meat: 1,
-            cheese: 1,
-            bacon: 1
-        }
+        ingredients: null
+    }
+
+    componentDidMount() {
+        // we can take the state passed in the router props
+        this.setState({ ingredients: this.props.location.state });
     }
 
     checkoutCancelledHandler = () => {
