@@ -6,12 +6,19 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends React.Component {
     state = {
-        ingredients: null
+        ingredients: null,
+        totalPrice: 0
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        if (!this.props.location.state) {
+            this.props.history.replace('/');
+        }
         // we can take the state passed in the router props
-        this.setState({ ingredients: this.props.location.state });
+        this.setState({
+            ingredients: this.props.location.state.ingredients,
+            totalPrice: this.props.location.state.totalPrice
+        });
     }
 
     checkoutCancelledHandler = () => {
@@ -29,7 +36,10 @@ class Checkout extends React.Component {
                     ingredients={this.state.ingredients}
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
-                <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
+                <Route
+                    path={this.props.match.path + '/contact-data'}
+                    // By rendering it manually we can pass props to it:
+                    render={(props) => <ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />} />
             </div>
         );
     }
