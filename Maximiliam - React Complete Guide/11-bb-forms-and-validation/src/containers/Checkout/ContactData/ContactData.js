@@ -93,6 +93,27 @@ class ContactData extends React.Component {
             });
     }
 
+    inputChangedHandler = (e, inputIdentifier) => {
+        // console.log(e.target.value);
+        // console.log(inputIdentifier); // name, email, street...
+
+        // Make a copy of the whole state:
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        // Make a copy of the identifier only: (name, street, email...):
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        };
+        // Update the 'value' in the indentifier:
+        updatedFormElement.value = e.target.value;
+        // Replace the updated identifier in the copied state object:
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        // Make it official by updating the real state:
+        this.setState({ orderForm: updatedOrderForm });
+
+    }
+
     render() {
         const formElementsArray = [];
 
@@ -103,7 +124,7 @@ class ContactData extends React.Component {
             })
         }
 
-        console.log(formElementsArray);
+        // console.log(formElementsArray);
 
         let form = (
             <form>
@@ -112,7 +133,8 @@ class ContactData extends React.Component {
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value} />
+                        value={formElement.config.value}
+                        changed={(e) => this.inputChangedHandler(e, formElement.id)} />
                 ))}
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
