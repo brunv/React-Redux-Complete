@@ -15,7 +15,11 @@ class ContactData extends React.Component {
                     type: 'text',
                     placeholder: 'Your Name'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             street: {
                 elementType: 'input',
@@ -23,7 +27,11 @@ class ContactData extends React.Component {
                     type: 'text',
                     placeholder: 'Street'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             zipCode: {
                 elementType: 'input',
@@ -31,7 +39,13 @@ class ContactData extends React.Component {
                     type: 'text',
                     placeholder: 'ZIP Code'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 5
+                },
+                valid: false
             },
             country: {
                 elementType: 'input',
@@ -39,7 +53,11 @@ class ContactData extends React.Component {
                     type: 'text',
                     placeholder: 'Country'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             email: {
                 elementType: 'input',
@@ -47,7 +65,11 @@ class ContactData extends React.Component {
                     type: 'email',
                     placeholder: 'Your Email'
                 },
-                value: ''
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -88,6 +110,26 @@ class ContactData extends React.Component {
             });
     }
 
+    /* Not the best way to do this. Check better third party libraries to
+       do the validation. */
+    validationCheck(value, rules) {
+        let isValid = true;
+
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid;
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid;
+        }
+
+        return isValid;
+    }
+
     inputChangedHandler = (e, inputIdentifier) => {
         // console.log(e.target.value);
         // console.log(inputIdentifier); // name, email, street...
@@ -102,8 +144,11 @@ class ContactData extends React.Component {
         };
         // Update the 'value' in the indentifier:
         updatedFormElement.value = e.target.value;
+        // Go through validation check:
+        updatedFormElement.valid = this.validationCheck(updatedFormElement.value, updatedFormElement.validation);
         // Replace the updated identifier in the copied state object:
         updatedOrderForm[inputIdentifier] = updatedFormElement;
+        console.log(updatedFormElement);
         // Make it official by updating the real state:
         this.setState({ orderForm: updatedOrderForm });
 
