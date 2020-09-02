@@ -84,9 +84,12 @@ class ContactData extends React.Component {
                         { value: 'cheapest', displayValue: 'Cheapest' },
                     ]
                 },
-                value: ''
+                value: 'fastest',
+                validation: {},
+                valid: true
             }
         },
+        formIsValid: false,
         loading: false
     }
 
@@ -156,8 +159,13 @@ class ContactData extends React.Component {
         // Replace the updated identifier in the copied state object:
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         // console.log(updatedFormElement);
+        // Check if all inputs are valid:
+        let formIsValid = true;
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
         // Make it official by updating the real state:
-        this.setState({ orderForm: updatedOrderForm });
+        this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
 
     }
 
@@ -186,7 +194,7 @@ class ContactData extends React.Component {
                         touched={formElement.config.touched}
                         changed={(e) => this.inputChangedHandler(e, formElement.id)} />
                 ))}
-                <Button btnType="Success">ORDER</Button>
+                <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
             </form>
         );
 
