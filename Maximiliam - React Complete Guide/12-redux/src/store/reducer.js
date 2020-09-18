@@ -3,7 +3,29 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    return state;
+    switch (action.type) {
+        case 'INCREMENT':
+            return {
+                counter: state.counter + 1
+            }
+
+        case 'DECREMENT':
+            return {
+                counter: state.counter - 1
+            }
+
+        case 'INC_FIVE':
+            return {
+                counter: state.counter + 5
+            }
+
+        case 'DEC_FIVE':
+            return {
+                counter: state.counter - 5
+            }
+        default:
+            return state;
+    }
 };
 
 export default reducer;
