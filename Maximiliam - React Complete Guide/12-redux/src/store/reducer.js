@@ -14,14 +14,14 @@ const reducer = (state = initialState, action) => {
                 counter: state.counter - 1
             }
 
-        case 'INC_FIVE':
+        case 'ADD':
             return {
-                counter: state.counter + 5
+                counter: state.counter + action.value
             }
 
-        case 'DEC_FIVE':
+        case 'SUB':
             return {
-                counter: state.counter - 5
+                counter: state.counter - action.value
             }
         default:
             return state;
