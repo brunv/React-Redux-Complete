@@ -12,8 +12,8 @@ import * as actionTypes from '../../store/actions';
 
 class BurgerBuilder extends React.Component {
 
+    // UI State only (co-exist with Redux):
     state = {
-        purchasable: false,
         purchasing: false,
         loading: false,
         error: false
@@ -29,65 +29,26 @@ class BurgerBuilder extends React.Component {
         //     });
     }
 
-    // addIngredientHandler = (type) => {
-    //     const oldCount = this.state.ingredients[type];
-    //     const updatedCount = oldCount + 1;
-    //     const updatedIngredients = {
-    //         ...this.state.ingredients
-    //     };
-    //     updatedIngredients[type] = updatedCount;
-    //     const priceAddition = INGREDIENT_PRICES[type];
-    //     const oldPrice = this.state.totalPrice;
-    //     const newPrice = oldPrice + priceAddition;
-
-    //     this.setState({
-    //         totalPrice: newPrice,
-    //         ingredients: updatedIngredients
-    //     });
-    //     this.updatePurchaseState(updatedIngredients);
-    // }
-
-    // removeIngredientHandler = (type) => {
-    //     const oldCount = this.state.ingredients[type];
-    //     if (oldCount <= 0) {
-    //         return;
-    //     }
-    //     const updatedCount = oldCount - 1;
-    //     const updatedIngredients = {
-    //         ...this.state.ingredients
-    //     };
-    //     updatedIngredients[type] = updatedCount;
-    //     const priceDeduction = INGREDIENT_PRICES[type];
-    //     const oldPrice = this.state.totalPrice;
-    //     const newPrice = oldPrice - priceDeduction;
-
-    //     this.setState({
-    //         totalPrice: newPrice,
-    //         ingredients: updatedIngredients
-    //     });
-    //     this.updatePurchaseState(updatedIngredients);
-    // }
-
     updatePurchaseState(ingredients) {
-        // const sum = Object.keys(ingredients)
-        //     .map(igKey => {
-        //         return ingredients[igKey];
-        //     })
-        //     .reduce((sum, el) => {
-        //         return sum + el;
-        //     }, 0);
+        const sum = Object.keys(ingredients)
+            .map(igKey => {
+                return ingredients[igKey];
+            })
+            .reduce((sum, el) => {
+                return sum + el;
+            }, 0);
 
-        // this.setState({ purchasable: sum > 0 });
+        return sum > 0;
         // console.log(Object.values(ingredients)); [0,0,1,0]
-        this.setState({ purchasable: Object.values(ingredients).some(amount => amount > 0) });
+        // this.setState({ purchasable: Object.values(ingredients).some(amount => amount > 0) });
     }
 
     purchasable = () => {
         let sum = 0;
-        for (let key in this.state.ingredients) {
-            sum += this.state.ingredients[key];
+        for (let key in this.props.ings) {
+            sum += this.props.ings[key];
         }
-        // console.log('hi');
+
         return sum > 0;
     }
 
@@ -129,8 +90,8 @@ class BurgerBuilder extends React.Component {
                         ingredientAdded={this.props.onIngredientAdded}
                         ingredientRemoved={this.props.onIngredientRemoved}
                         disabled={disabledInfo}
-                        purchasable={this.state.purchasable}
-                        // purchasable={this.purchasable()}
+                        // purchasable={this.updatePurchaseState(this.props.ings)}
+                        purchasable={this.purchasable()}
                         ordered={this.purchaseHandler}
                         price={this.props.price} />
                 </React.Fragment>
