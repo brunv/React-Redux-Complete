@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 
 import './index.css';
@@ -26,8 +26,11 @@ const logger = store => {
     }
 };
 
+// Enchaers (like Redux DevTools):
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 // Also apply middleware to the store:
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
 
 ReactDOM.render(
     <Provider store={store}>
