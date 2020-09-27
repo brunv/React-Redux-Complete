@@ -10,8 +10,11 @@ export const saveResult = (res) => {
 
 // use Redux Thunk to 'dispatch' a Sync action within a Async action:
 export const storeResult = (res) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         setTimeout(() => {
+            // Don't over use this. Get information from arguments instead:
+            const oldCounter = getState().ctr.counter;
+            console.log(oldCounter);
             dispatch(saveResult(res));
         }, 2000);
 

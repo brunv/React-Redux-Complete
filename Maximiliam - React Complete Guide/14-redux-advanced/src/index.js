@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
 });
 
 /* Logger Middleware */
+// could be: const logger = store => next => action {}
 const logger = store => {
     return next => {
         return action => {

@@ -10,7 +10,7 @@ const reducer = (state = initialState, action) => {
             // 'concat()' returns a new array which is the older array plus the argument:
             return {
                 ...state,
-                results: state.results.concat({ id: new Date(), value: action.result })
+                results: state.results.concat({ id: new Date(), value: action.result * 2 })
             }
 
         case actionTypes.DELETE_RESULT:
