@@ -6,6 +6,8 @@ import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.module.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends React.Component {
     state = {
@@ -96,7 +98,6 @@ class ContactData extends React.Component {
 
     orderHandler = (e) => {
         e.preventDefault();
-        this.setState({ loading: true });
 
         const formData = {};
         for (let formELementIdentifier in this.state.orderForm) {
@@ -109,14 +110,7 @@ class ContactData extends React.Component {
             orderData: formData
         };
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({ loading: false });
-                this.props.history.push('/');
-            })
-            .catch(error => {
-                this.setState({ loading: false });
-            });
+        this.props.onOrderBurger(order);
     }
 
     /* Not the best way to do this. Check better third party libraries to
@@ -219,4 +213,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurgerStart(orderData))
+    };
+};
+
+export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
