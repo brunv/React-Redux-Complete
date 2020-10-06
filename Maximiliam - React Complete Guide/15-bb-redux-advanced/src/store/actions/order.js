@@ -20,8 +20,9 @@ export const purchaseBurgerFail = (error) => {
 // use redux thunk:
 export const purchaseBurgerStart = (orderData) => {
     return dispatch => {
-        axios.post('/order.json', orderData)
+        axios.post('/orders.json', orderData)
             .then(response => {
+                console.log(response.data);
                 dispatch(purchaseBurgerSuccess(response.data, orderData));
             })
             .catch(error => {
