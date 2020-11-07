@@ -121,13 +121,14 @@ class Auth extends React.Component {
 
         return (
             <div className={classes.Auth}>
+                <h1>PLEASE {this.state.isSignup ? 'SIGN-UP' : 'SIGN-IN'}:</h1>
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success">SUBMIT</Button>
                 </form>
                 <Button
                     clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}</Button>
+                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGN-IN' : 'SIGN-UP'}</Button>
             </div>
         );
     }
