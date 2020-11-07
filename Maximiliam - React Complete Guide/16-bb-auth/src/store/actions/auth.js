@@ -23,7 +23,7 @@ export const authFail = (error) => {
 };
 
 // use Redux Thunk:
-export const auth = (email, password) => {
+export const auth = (email, password, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
@@ -32,7 +32,12 @@ export const auth = (email, password) => {
             returnSecureToken: true
         };
 
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBSSlJHIfv5qNFk39u5WwaWD82Q1DsppQU', authData)
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBSSlJHIfv5qNFk39u5WwaWD82Q1DsppQU';
+        if (!isSignup) {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBSSlJHIfv5qNFk39u5WwaWD82Q1DsppQU';
+        }
+
+        axios.post(url, authData)
             .then(response => {
                 console.log(response);
                 dispatch(authSuccess(response.data))
