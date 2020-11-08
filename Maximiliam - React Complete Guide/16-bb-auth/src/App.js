@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
@@ -17,15 +17,31 @@ class App extends React.Component {
     }
 
     render() {
+        let routes = (
+            <React.Fragment>
+                <Route path="/auth" component={Auth} />
+                <Route path="/" component={BurgerBuilder} />
+                <Redirect to="/" />
+            </React.Fragment>
+        );
+
+        if (this.props.isAuthenticated) {
+            routes = (
+                <React.Fragment>
+                    <Route path="/checkout" component={Checkout} />
+                    <Route path="/orders" component={Orders} />
+                    <Route path="/logout" component={Logout} />
+                    <Route path="/auth" component={Auth} />
+                    <Route path="/" component={BurgerBuilder} />
+                </React.Fragment>
+            );
+        }
+
         return (
             <div>
                 <Layout>
                     <Switch>
-                        <Route path="/checkout" component={Checkout} />
-                        <Route path="/orders" component={Orders} />
-                        <Route path="/auth" component={Auth} />
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/" component={BurgerBuilder} />
+                        {routes}
                     </Switch>
                 </Layout>
             </div>
@@ -33,10 +49,16 @@ class App extends React.Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         onTryAutoSignin: () => dispatch(actions.authCheckState())
     };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
