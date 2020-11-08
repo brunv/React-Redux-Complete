@@ -18,31 +18,29 @@ class App extends React.Component {
 
     render() {
         let routes = (
-            <React.Fragment>
+            <Switch>
                 <Route path="/auth" component={Auth} />
                 <Route path="/" component={BurgerBuilder} />
                 <Redirect to="/" />
-            </React.Fragment>
+            </Switch>
         );
 
         if (this.props.isAuthenticated) {
             routes = (
-                <React.Fragment>
+                <Switch>
                     <Route path="/checkout" component={Checkout} />
                     <Route path="/orders" component={Orders} />
                     <Route path="/logout" component={Logout} />
                     <Route path="/auth" component={Auth} />
                     <Route path="/" component={BurgerBuilder} />
-                </React.Fragment>
+                </Switch>
             );
         }
 
         return (
             <div>
                 <Layout>
-                    <Switch>
-                        {routes}
-                    </Switch>
+                    {routes}
                 </Layout>
             </div>
         );
