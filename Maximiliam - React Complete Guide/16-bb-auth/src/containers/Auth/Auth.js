@@ -43,6 +43,12 @@ class Auth extends React.Component {
         isSignup: true
     }
 
+    componentDidMount() {
+        if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath();
+        }
+    }
+
     /* Not the best way to do this. Check better third party libraries to
        do the validation. */
     validationCheck(value, rules) {
@@ -135,7 +141,7 @@ class Auth extends React.Component {
 
         let authRedirect = null;
         if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to="/" />
+            authRedirect = <Redirect to={this.props.authRedirectPath} />
         }
 
         return (
@@ -159,13 +165,16 @@ const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        buildingBurger: state.burgerBuilder.building,
+        authRedirectPath: state.auth.authRedirectPath
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
+        onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
     };
 };
 
