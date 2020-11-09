@@ -8,6 +8,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { validationCheck } from "../../../shared/validation";
 
 class ContactData extends React.Component {
     state = {
@@ -113,26 +114,6 @@ class ContactData extends React.Component {
         this.props.onOrderBurger(order, this.props.token);
     }
 
-    /* Not the best way to do this. Check better third party libraries to
-       do the validation. */
-    validationCheck(value, rules) {
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
-    }
-
     inputChangedHandler = (e, inputIdentifier) => {
         // console.log(e.target.value);
         // console.log(inputIdentifier); // name, email, street...
@@ -148,7 +129,7 @@ class ContactData extends React.Component {
         // Update the 'value' in the indentifier:
         updatedFormElement.value = e.target.value;
         // Go through validation check:
-        updatedFormElement.valid = this.validationCheck(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.valid = validationCheck(updatedFormElement.value, updatedFormElement.validation);
         // Marks that the user has touched this field:
         updatedFormElement.touched = true;
         // Replace the updated identifier in the copied state object:
