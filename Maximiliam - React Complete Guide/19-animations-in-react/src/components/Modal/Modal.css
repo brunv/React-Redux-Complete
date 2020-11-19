@@ -15,12 +15,10 @@
 
 .ModalOpen {
     animation: openModal 0.4s ease-out forwards;
-    visibility: visible;
 }
 
 .ModalClosed {
     animation: closeModal 1s ease-out forwards;
-    visibility: hidden;
 }
 
 .fade-slide-enter {
@@ -64,7 +62,7 @@
         transform: translateY(60%);
     }
     100% {
-        opacity: 1;
+        opacity: 0;
         transform: translateY(-100%);
     }
 }
