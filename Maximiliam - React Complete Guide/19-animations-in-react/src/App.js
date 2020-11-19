@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Transition from 'react-transition-group/Transition';
+import { Transition } from 'react-transition-group';
 
 import "./App.css";
 import Modal from "./components/Modal/Modal";
@@ -30,7 +30,14 @@ class App extends Component {
                     in={this.state.showBlock}
                     timeout={1000}
                     mountOnEnter
-                    unmountOnExit>
+                    unmountOnExit
+                    onEnter={() => console.log('onEnter')}
+                    onEntering={() => console.log('onEntering')}
+                    onEntered={() => console.log('onEntered')}
+                    onExit={() => console.log('onExit')}
+                    onExiting={() => console.log('onExiting')}
+                    onExited={() => console.log('onExited')}
+                >
                     {state => (
                         <div style={{
                             backgroundColor: "red",
