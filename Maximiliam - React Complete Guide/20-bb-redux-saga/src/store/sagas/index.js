@@ -20,3 +20,13 @@ export function* watchOrder() {
     yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
     yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }
+
+/*
+TAKE A LOOK AT OTHER FUNCTIONS AS:
+- ALL
+- TAKELATEST
+- CALL
+- RUN
+
+redux-saga.js.org/docs/advanced/Testing.html
+*/
