@@ -13,7 +13,12 @@ const IngredientForm = React.memo(props => {
    * one is a snapshot of the current state and the second is a function to set
    * the new state. Use the array destructuring to create 'foo' and 'setFoo'.
    */
-  const [state, setState] = useState({ title: '', amount: '', });
+  /**
+   * Split your state into multiple state. Only use arrays or objects if you
+   * really have data that changes together.
+   */
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState('');
 
   const submitHandler = event => {
     event.preventDefault();
@@ -27,7 +32,7 @@ const IngredientForm = React.memo(props => {
           <div className="form-control">
             <label htmlFor="title">Name</label>
             <input type="text" id="title"
-              value={state.title}
+              value={title}
               /**
                * Everytime you have to save a new state based on a previous state
                * you must use the first parameter of the 'setState' function, 
@@ -35,26 +40,14 @@ const IngredientForm = React.memo(props => {
                * directly can create some problems if you have lots of state to
                * manage.
                */
-              onChange={event => {
-                const newTitle = event.target.value;
-                setState((prevState) => ({
-                  title: newTitle,
-                  amount: prevState.amount
-                }));
-              }}
+              onChange={event => setTitle(event.target.value)}
             />
           </div>
           <div className="form-control">
             <label htmlFor="amount">Amount</label>
             <input type="number" id="amount"
-              value={state.amount}
-              onChange={event => {
-                const newAmout = event.target.value;
-                setState((prevState) => ({
-                  title: prevState.title,
-                  amount: newAmout
-                }));
-              }}
+              value={amount}
+              onChange={event => setAmount(event.target.value)}
             />
           </div>
           <div className="ingredient-form__actions">
