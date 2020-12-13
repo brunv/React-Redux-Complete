@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Card from '../UI/Card';
+import LoadingIndicator from '../UI/LoadingIndicator';
 import './IngredientForm.css';
 
 const IngredientForm = React.memo(props => {
@@ -36,13 +37,6 @@ const IngredientForm = React.memo(props => {
             <label htmlFor="title">Name</label>
             <input type="text" id="title"
               value={title}
-              /**
-               * Everytime you have to save a new state based on a previous state
-               * you must use the first parameter of the 'setState' function, 
-               * which is a snapshot of the previous state. Using the 'state'
-               * directly can create some problems if you have lots of state to
-               * manage.
-               */
               onChange={event => setTitle(event.target.value)}
             />
           </div>
@@ -55,6 +49,7 @@ const IngredientForm = React.memo(props => {
           </div>
           <div className="ingredient-form__actions">
             <button type="submit">Add Ingredient</button>
+            {props.loading && <LoadingIndicator />}
           </div>
         </form>
       </Card>

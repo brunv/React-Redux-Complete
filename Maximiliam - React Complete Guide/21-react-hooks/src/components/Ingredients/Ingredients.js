@@ -2,43 +2,29 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
+import ErrorModal from '../UI/ErrorModal';
 import Search from './Search';
 
 const Ingredients = () => {
   /**
-   * All the functions defined inside of the component funciont are created
-   * again. So be careful and avoid creating an infinite loop.
+   * All the functions defined inside of the component funcions are created
+   * again when the component is rendered. So be careful and avoid creating
+   * an infinite loop.
    */
 
   const [ingredients, setIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   /**
    * This hook handles Side Effects. It gets executed right after every
    * component update (re-render) if no second argument is passed, acting
    * like the componentDidUpdate().
-   */
-  // useEffect(() => {
-  //   fetch('https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients.json')
-  //     .then(response => response.json())
-  //     .then(responseData => {
-  //       const loadedIngredients = [];
-  //       for (const key in responseData) {
-  //         loadedIngredients.push({
-  //           id: key,
-  //           title: responseData[key].title,
-  //           amount: responseData[key].amount
-  //         });
-  //       }
-  //       setIngredients(loadedIngredients);
-  //     })
-  /**
-   * Used like this (with [] as a second argument), it acts like the
+   * 
+   * Used with [] as a second argument, it acts like the
    * componentDidMount(), which means that it runs only once (after the
    * first render).
-   */
-  // }, []);
-
-  /**
+   * 
    * Here's an example of useEffect() with specific dependecies declared.
    */
   useEffect(() => {
@@ -46,11 +32,14 @@ const Ingredients = () => {
   }, [ingredients]);
 
   const addIngredientHandler = (ingredient) => {
+    setIsLoading(true);
+
     fetch('https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
       headers: { 'Content-Type': 'application/json' }
     }).then(response => {
+      setIsLoading(false);
       return response.json();
     }).then(responseData => {
       setIngredients(prevIngredients => [
@@ -58,16 +47,28 @@ const Ingredients = () => {
         { id: responseData.name, ...ingredient }
       ]);
     });
-
   }
 
+  /**
+   * Everytime you have to save a new state based on a previous state
+   * you must use the first parameter of the 'setState' function,
+   * which is a snapshot of the previous state. Using the 'state'
+   * directly can create some problems if you have lots of state to
+   * manage.
+  */
   const removeIngredientHandler = (ingredientId) => {
-    // Not the best way (not using the prevState):
-    // const updatedIngredients = ingredients.filter(ing => ing.id !== ingredientId);
-    // setIngredients([...updatedIngredients]);
-    setIngredients(prevIngredients => prevIngredients.filter(
-      ing => ing.id !== ingredientId
-    ));
+    setIsLoading(true);
+
+    fetch(`https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients/${ingredientId}.jon`, { method: 'DELETE', })
+      .then(reponse => {
+        setIsLoading(false);
+        setIngredients(prevIngredients => prevIngredients.filter(
+          ing => ing.id !== ingredientId
+        ));
+      })
+      .catch(error => {
+        setError(error.message);
+      });
   }
 
   /**
@@ -81,9 +82,26 @@ const Ingredients = () => {
     setIngredients(filteredIngredients);
   }, []);
 
+  /**
+   * setState() hook batches the state updates. This means that in the function
+   * bellow both updates run right after each other (synchronously). So
+   * setError() doesn't cause a rerender cycle and then setIsLoading() doesn't
+   * cause a rerender either. We only have one render cycle here which reflects
+   * both state updates.
+   */
+  const clearError = () => {
+    setError(null);
+    setIsLoading(false);
+  }
+
   return (
     <div className="App">
-      <IngredientForm onAddIngredient={addIngredientHandler} />
+      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+
+      <IngredientForm
+        onAddIngredient={addIngredientHandler}
+        loading={isLoading}
+      />
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
