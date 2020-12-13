@@ -75,8 +75,8 @@ const Ingredients = () => {
    * useCallback() hook receives a callback and and array as arguments. The hook
    * will return a memoized version of the callback, that only changes if the
    * dependencies changes.
-   * It basically caches the callback function so it survives rerun cycles and
-   * therefore the functiona is not recreated.
+   * It basically caches the callback function so it survives re-run cycles and
+   * therefore the functions is not recreated.
    */
   const filteredIngredientsHandler = useCallback((filteredIngredients) => {
     setIngredients(filteredIngredients);
@@ -85,9 +85,14 @@ const Ingredients = () => {
   /**
    * setState() hook batches the state updates. This means that in the function
    * bellow both updates run right after each other (synchronously). So
-   * setError() doesn't cause a rerender cycle and then setIsLoading() doesn't
-   * cause a rerender either. We only have one render cycle here which reflects
+   * setError() doesn't cause a re-render cycle and then setIsLoading() doesn't
+   * cause a re-render either. We only have one render cycle here which reflects
    * both state updates.
+   * 
+   * Keep in mind that the new state value is only available in the next
+   * component render cycle. Both concepts (batching and new state availability)
+   * bahave in the same way for both functional component with hooks as well as
+   * class-based components with this.setState().
    */
   const clearError = () => {
     setError(null);
