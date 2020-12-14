@@ -1,9 +1,37 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useReducer } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
 import ErrorModal from '../UI/ErrorModal';
 import Search from './Search';
+
+/**
+ * We tipically define our reducer outside of the component so that it isn't
+ * recreated whenever the componenet re-renders, because the reducer function
+ * is often decoupled from what is happening inside the component.
+ * 
+ * This hook accepts a reducer of (state, action) => newState and returns the
+ * current state along with a dispatch method. It's commonly used when we have
+ * a complex state to manipulate or the state depends on the previous state.
+ * It is also used to optimize the performance when we have state updates that
+ * are deeply nested. That's possible thanks to the dispatch function, intead
+ * of passing down the callbacks.
+ * 
+ * When working with useReducer(), React will re-render the component whenever
+ * your reducer returns the new state.
+ */
+const ingredientReducer = (currentIngredients, action) => {
+  switch (action.type) {
+    case 'SET':
+      return action.ingredients;
+    case 'ADD':
+      return [...currentIngredients, action.ingredient];
+    case 'DELETE':
+      return currentIngredients.filter(ing => ing.id !== action.ingId);
+    default:
+      throw new Error('Shold not get there!');
+  }
+}
 
 const Ingredients = () => {
   /**
@@ -12,7 +40,8 @@ const Ingredients = () => {
    * an infinite loop.
    */
 
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, dispatch] = useReducer(ingredientReducer, []);
+  // const [ingredients, setIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
@@ -42,10 +71,14 @@ const Ingredients = () => {
       setIsLoading(false);
       return response.json();
     }).then(responseData => {
-      setIngredients(prevIngredients => [
-        ...prevIngredients,
-        { id: responseData.name, ...ingredient }
-      ]);
+      // setIngredients(prevIngredients => [
+      //   ...prevIngredients,
+      //   { id: responseData.name, ...ingredient }
+      // ]);
+      dispatch({
+        type: 'ADD',
+        ingredient: { id: responseData.name, ...ingredient }
+      });
     });
   }
 
@@ -59,12 +92,13 @@ const Ingredients = () => {
   const removeIngredientHandler = (ingredientId) => {
     setIsLoading(true);
 
-    fetch(`https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients/${ingredientId}.jon`, { method: 'DELETE', })
+    fetch(`https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`, { method: 'DELETE', })
       .then(reponse => {
         setIsLoading(false);
-        setIngredients(prevIngredients => prevIngredients.filter(
-          ing => ing.id !== ingredientId
-        ));
+        // setIngredients(prevIngredients => prevIngredients.filter(
+        //   ing => ing.id !== ingredientId
+        // ));
+        dispatch({ type: 'DELETE', ingId: ingredientId });
       })
       .catch(error => {
         setError(error.message);
@@ -72,14 +106,15 @@ const Ingredients = () => {
   }
 
   /**
-   * useCallback() hook receives a callback and and array as arguments. The hook
+   * useCallback() hook receives a callback and an array as arguments. The hook
    * will return a memoized version of the callback, that only changes if the
    * dependencies changes.
    * It basically caches the callback function so it survives re-run cycles and
    * therefore the functions is not recreated.
    */
   const filteredIngredientsHandler = useCallback((filteredIngredients) => {
-    setIngredients(filteredIngredients);
+    // setIngredients(filteredIngredients);
+    dispatch({ type: 'SET', ingredients: filteredIngredients });
   }, []);
 
   /**
