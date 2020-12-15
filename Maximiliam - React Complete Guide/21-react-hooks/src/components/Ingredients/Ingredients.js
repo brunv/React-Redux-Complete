@@ -31,7 +31,22 @@ const ingredientReducer = (currentIngredients, action) => {
     default:
       throw new Error('Shold not get there!');
   }
-}
+};
+
+const httpReducer = (httpState, action) => {
+  switch (action.type) {
+    case 'SEND':
+      return { loading: true, error: null };
+    case 'RESPONSE':
+      return { ...httpState, loading: false };
+    case 'ERROR':
+      return { loading: false, error: action.errorMsg };
+    case 'CLEAR':
+      return { ...httpState, error: null }
+    default:
+      throw new Error('Should not be reached!');
+  }
+};
 
 const Ingredients = () => {
   /**
@@ -41,9 +56,10 @@ const Ingredients = () => {
    */
 
   const [ingredients, dispatch] = useReducer(ingredientReducer, []);
+  const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
   // const [ingredients, setIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState();
 
   /**
    * This hook handles Side Effects. It gets executed right after every
@@ -61,14 +77,16 @@ const Ingredients = () => {
   }, [ingredients]);
 
   const addIngredientHandler = (ingredient) => {
-    setIsLoading(true);
+    // setIsLoading(true);
+    dispatchHttp({ type: 'SEND' });
 
     fetch('https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
       headers: { 'Content-Type': 'application/json' }
     }).then(response => {
-      setIsLoading(false);
+      // setIsLoading(false);
+      dispatchHttp({ type: 'RESPONSE' });
       return response.json();
     }).then(responseData => {
       // setIngredients(prevIngredients => [
@@ -90,18 +108,21 @@ const Ingredients = () => {
    * manage.
   */
   const removeIngredientHandler = (ingredientId) => {
-    setIsLoading(true);
+    // setIsLoading(true);
+    dispatchHttp({ type: 'SEND' });
 
     fetch(`https://react-hooks-cdf8b-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`, { method: 'DELETE', })
       .then(reponse => {
-        setIsLoading(false);
+        // setIsLoading(false);
+        dispatchHttp({ type: 'RESPONSE' });
         // setIngredients(prevIngredients => prevIngredients.filter(
         //   ing => ing.id !== ingredientId
         // ));
         dispatch({ type: 'DELETE', ingId: ingredientId });
       })
       .catch(error => {
-        setError(error.message);
+        // setError(error.message);
+        dispatchHttp({ type: 'ERROR', errorMsg: 'Something went wrong!' });
       });
   }
 
@@ -130,17 +151,18 @@ const Ingredients = () => {
    * class-based components with this.setState().
    */
   const clearError = () => {
-    setError(null);
-    setIsLoading(false);
+    // setError(null);
+    // setIsLoading(false);
+    dispatchHttp({ type: 'CLEAR' });
   }
 
   return (
     <div className="App">
-      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+      {httpState.error && <ErrorModal onClose={clearError}>{httpState.error}</ErrorModal>}
 
       <IngredientForm
         onAddIngredient={addIngredientHandler}
-        loading={isLoading}
+        loading={httpState.loading}
       />
 
       <section>
