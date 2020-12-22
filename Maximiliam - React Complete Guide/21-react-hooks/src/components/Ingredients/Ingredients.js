@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useReducer } from 'react';
+import React, { useMemo, useEffect, useCallback, useReducer } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
@@ -49,11 +49,11 @@ const httpReducer = (httpState, action) => {
 };
 
 const Ingredients = () => {
-  /**
-   * All the functions defined inside of the component funcions are created
-   * again when the component is rendered. So be careful and avoid creating
-   * an infinite loop.
-   */
+  /****************************************************************************
+   * All the functions (except the useReducers) defined inside of the component
+   * funcions are created again when the component is rendered. So be careful 
+   * and avoid creating an infinite loop.
+   ****************************************************************************/
 
   const [ingredients, dispatch] = useReducer(ingredientReducer, []);
   const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null });
@@ -76,7 +76,7 @@ const Ingredients = () => {
     console.log('rendering ingredients...', ingredients);
   }, [ingredients]);
 
-  const addIngredientHandler = (ingredient) => {
+  const addIngredientHandler = useCallback((ingredient) => {
     // setIsLoading(true);
     dispatchHttp({ type: 'SEND' });
 
@@ -98,7 +98,7 @@ const Ingredients = () => {
         ingredient: { id: responseData.name, ...ingredient }
       });
     });
-  }
+  }, []);
 
   /**
    * Everytime you have to save a new state based on a previous state
@@ -107,7 +107,7 @@ const Ingredients = () => {
    * directly can create some problems if you have lots of state to
    * manage.
   */
-  const removeIngredientHandler = (ingredientId) => {
+  const removeIngredientHandler = useCallback((ingredientId) => {
     // setIsLoading(true);
     dispatchHttp({ type: 'SEND' });
 
@@ -124,14 +124,17 @@ const Ingredients = () => {
         // setError(error.message);
         dispatchHttp({ type: 'ERROR', errorMsg: 'Something went wrong!' });
       });
-  }
+  }, []);
 
   /**
    * useCallback() hook receives a callback and an array as arguments. The hook
    * will return a memoized version of the callback, that only changes if the
    * dependencies changes.
    * It basically caches the callback function so it survives re-run cycles and
-   * therefore the functions is not recreated.
+   * therefore the functions is not recreated. 
+   * The useCallack() is useful when we want to optimize child components that
+   * depends on a reference of the callback so they don't re-render
+   * unnecessarily, actiong like a 'componentShouldUpdate()'.
    */
   const filteredIngredientsHandler = useCallback((filteredIngredients) => {
     // setIngredients(filteredIngredients);
@@ -150,24 +153,38 @@ const Ingredients = () => {
    * bahave in the same way for both functional component with hooks as well as
    * class-based components with this.setState().
    */
-  const clearError = () => {
+  const clearError = useCallback(() => {
     // setError(null);
     // setIsLoading(false);
     dispatchHttp({ type: 'CLEAR' });
-  }
+  }, []);
+
+  /**
+   * The useMemo() hook receives a functions that returns the value that should
+   * be memoized. This also receives a second argument which is a list of
+   * dependencies, and tells react when it should re-run this functions to
+   * create a new object that should be memoized.
+   * It's an alternative to React.memo().
+   */
+  const ingredientList = useMemo(() => {
+    return (
+      <IngredientList
+        ingredients={ingredients}
+        onRemoveItem={removeIngredientHandler}
+      />
+    );
+  }, [ingredients, removeIngredientHandler]);
 
   return (
     <div className="App">
       {httpState.error && <ErrorModal onClose={clearError}>{httpState.error}</ErrorModal>}
-
       <IngredientForm
         onAddIngredient={addIngredientHandler}
         loading={httpState.loading}
       />
-
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
-        <IngredientList ingredients={ingredients} onRemoveItem={removeIngredientHandler} />
+        {ingredientList}
       </section>
     </div>
   );
