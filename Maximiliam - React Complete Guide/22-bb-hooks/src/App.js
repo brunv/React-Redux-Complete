@@ -46,18 +46,17 @@ const App = (props) => {
                 <Route path="/" component={BurgerBuilder} />
             </Switch>
         );
-
-
-        return (
-            <div>
-                <Layout>
-                    <Suspense fallback={<p>Loading...</p>}>
-                        {routes}
-                    </Suspense>
-                </Layout>
-            </div>
-        );
     }
+
+    return (
+        <div>
+            <Layout>
+                <Suspense fallback={<p>Loading...</p>}>
+                    {routes}
+                </Suspense>
+            </Layout>
+        </div>
+    );
 }
 
 const mapStateToProps = state => {
